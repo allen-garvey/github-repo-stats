@@ -3,7 +3,7 @@
  */
 (function($){
 	var languages_set = new WDP.countedSet();
-    $.get('https://api.github.com/users/allen-garvey/repos', function(repos) {
+    $.get('https://api.github.com/users/allen-garvey/repos?per_page=100', function(repos) {
     	$.each(repos, function(index, repo) {
     		 languages_set.add(repo.language);
     	});
