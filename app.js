@@ -45,7 +45,9 @@
         // Set chart options
         var options = {'title':'Repos by language',
                        'width':'100%',
-                       'height':500};
+                        'height':500,
+                        'colors': ['#E51707', '#A3C6DF', '#471267', '#0064A6', '#210047', '#D9D9D9']
+                   };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
