@@ -44,7 +44,7 @@ WDP.countedSet.prototype.getSortedCollection = function() {
 	var collection = this.collection; //because can't reference this inside function
 	var sortable = [];
 	for (var key in collection){
-		sortable.push({'name' : key, 'amount' : collection[key], 'percentage_amount' : collection[key] * 1.0 / this.max * 100});	
+		sortable.push({'name' : key, 'amount' : collection[key], 'percentage_of_max' : collection[key] * 1.0 / this.max * 100});	
 	} 
 	sortable.sort(function(a, b) {return -(a['amount'] - b['amount'])});
 	return sortable;
