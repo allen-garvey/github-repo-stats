@@ -15,12 +15,14 @@
     	language_list = languages_set.getSortedCollection();
         // Set a callback to run when the Google Visualization API is loaded.
         //because language list is initialized now
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(function(){drawReposByLanguageChart(language_list);});
 
         var $languages_list = $('#languages_list');
     	$.each(language_list, function(index, val) {
-    		 var title = val.name + ' - ' + val.amount;
-             $languages_list.append(language_list_item_template({title: title, percentage: val.percentage_of_max}));
+            var variables = {};
+    		variables.title = val.name + ' - ' + val.amount;
+            variables.percentage = val.percentage_of_max;
+            $languages_list.append(language_list_item_template(variables));
     	});
     });
 
@@ -29,7 +31,7 @@
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
-      function drawChart() {
+      function drawReposByLanguageChart(language_list) {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
