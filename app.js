@@ -25,6 +25,7 @@
                 var variables = {};
                 variables.title = val.name + ' - ' + val.amount;
                 variables.percentage = val.percentage_of_max;
+                variables.color = COLORS[index % COLORS.length];
                 $languages_list.append(language_list_item_template(variables));
             });
         });
