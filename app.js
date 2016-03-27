@@ -1,11 +1,13 @@
 /*
  * 
  */
-(function($){
+(function($, _){
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
 	var languages_set = new WDP.countedSet();
     var language_list = [];
+    var COLORS = ['#F44336', '#E91E63', '#9C27B0', '#3F51B5', '#2196F3', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#795548'];
+    var language_list_item_template = _.template($('#language_list_item_template').html());
     $.get('https://api.github.com/users/allen-garvey/repos?per_page=100', function(repos) {
     	$.each(repos, function(index, repo) {
     		 languages_set.add(repo.language);
@@ -17,14 +19,10 @@
 
         var $languages_list = $('#languages_list');
     	$.each(language_list, function(index, val) {
-    		 var text = val.name + ' - ' + val.amount;
-    		 console.log(text);
-    		 $languages_list.append('<li><span class="list_text">' + text + '</span><div class="bar" style="width:' +  val.percentage_of_max + '%"></div></li>');
+    		 var title = val.name + ' - ' + val.amount;
+             $languages_list.append(language_list_item_template({title: title, percentage: val.percentage_of_max}));
     	});
     });
-
-
-
 
       
 
@@ -46,11 +44,11 @@
         var options = {'title':'Repos by language',
                        'width':'100%',
                         'height':500,
-                        'colors': ['#F44336', '#E91E63', '#9C27B0', '#3F51B5', '#2196F3', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#795548']
+                        'colors': COLORS
                    };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
-})(jQuery);
+})(jQuery, _);
