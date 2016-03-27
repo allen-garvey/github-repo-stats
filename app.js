@@ -51,6 +51,8 @@
         var options = {'title':'Repos by language',
                        'width':'100%',
                         'height':500,
+                        'fontName' : "Avenir, 'Noto Sans', 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif;",
+                        'fontSize' : 16,
                         'colors': COLORS
                    };
 
