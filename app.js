@@ -4,13 +4,28 @@
 (function($, _){
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
-	var languages_set = new WDP.countedSet();
-    var language_list = [];
     var COLORS = ['#F44336', '#E91E63', '#9C27B0', '#3F51B5', '#2196F3', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#795548'];
     var language_list_item_template = _.template($('#language_list_item_template').html());
+    var title_template = _.template($('#title_template').html());
+    
+    $('#generate_button').on('click', generateReportButtonAction);
+    $('#username_input').keypress(function (e) {
+        if (e.which == 13) {
+            generateReportButtonAction();
+        }
+    });
+    generateReportButtonAction();
 
-    $.get('https://api.github.com/users/allen-garvey/repos?per_page=100')
+    function generateReportButtonAction(){
+        displayUserRepos($('#username_input').val());
+    }
+    
+    function displayUserRepos(user){
+        var language_list = [];
+        $.get('https://api.github.com/users/'+ user + '/repos?per_page=100')
         .done(function(repos){
+            $('#title_container').html(title_template({user:user}));
+            var languages_set = new WDP.countedSet();
             $.each(repos, function(index, repo) {
                 languages_set.add(repo.language);
             });
@@ -20,18 +35,22 @@
             google.charts.setOnLoadCallback(function(){drawReposByLanguageChart(language_list);});
         })
         .done(function(){
-            var $languages_list = $('#languages_list');
-            $.each(language_list, function(index, val) {
-                var variables = {};
-                variables.title = val.name + ' - ' + val.amount;
-                variables.percentage = val.percentage_of_max;
-                variables.color = COLORS[index % COLORS.length];
-                $languages_list.append(language_list_item_template(variables));
-            });
+            drawLanguagesBarChart(language_list);
         });
+    }
 
-
-      
+    
+    function drawLanguagesBarChart(language_list){
+        var $languages_list = $('#languages_list');
+        $languages_list.html('');
+        $.each(language_list, function(index, val) {
+            var variables = {};
+            variables.title = val.name + ' - ' + val.amount;
+            variables.percentage = val.percentage_of_max;
+            variables.color = COLORS[index % COLORS.length];
+            $languages_list.append(language_list_item_template(variables));
+        });
+    };
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
