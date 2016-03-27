@@ -46,7 +46,7 @@
         var options = {'title':'Repos by language',
                        'width':'100%',
                         'height':500,
-                        'colors': ['#E51707', '#A3C6DF', '#471267', '#0064A6', '#210047', '#D9D9D9']
+                        'colors': ['#F44336', '#E91E63', '#9C27B0', '#3F51B5', '#2196F3', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#795548']
                    };
 
         // Instantiate and draw our chart, passing in some options.
