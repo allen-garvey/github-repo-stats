@@ -8,12 +8,11 @@
     var language_list_item_template = _.template($('#language_list_item_template').html());
     var title_template = _.template($('#title_template').html());
     
-    $('#generate_button').on('click', generateReportButtonAction);
-    $('#username_input').keypress(function (e) {
-        if (e.which == 13) {
-            generateReportButtonAction();
-        }
+    $('#username_form').on('submit', function(event) {
+        event.preventDefault();
+        generateReportButtonAction();
     });
+    
     generateReportButtonAction();
 
     function generateReportButtonAction(){
