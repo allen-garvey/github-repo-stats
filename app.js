@@ -21,7 +21,7 @@
     
     function displayUserRepos(user){
         var language_list = [];
-        $.get('https://api.github.com/users/'+ user + '/repos?per_page=100')
+        $.get('https://api.github.com/users/'+ encodeURI(user) + '/repos?per_page=100')
         .done(function(repos){
             $('#title_container').html(title_template({user:user}));
             var languages_set = new WDP.countedSet();
